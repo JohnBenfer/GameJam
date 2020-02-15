@@ -13,6 +13,14 @@ namespace MonoGameWindowsStarter
     class Coin
     {
         Texture2D currentTexture;
+        double X;
+        double Y;
+
+        public Coin(Game1 game)
+        {
+            Random random = new Random();
+            random.Next(100, game.SCREEN_HEIGHT);
+        }
         public void Update()
         {
 
