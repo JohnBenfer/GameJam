@@ -11,5 +11,14 @@ namespace MonoGameWindowsStarter
 {
     class Coin
     {
+        public void Update()
+        {
+
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+
+        }
     }
 }

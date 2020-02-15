@@ -11,5 +11,14 @@ namespace MonoGameWindowsStarter
 {
     class Bird
     {
+        public void Update()
+        {
+
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+
+        }
     }
 }

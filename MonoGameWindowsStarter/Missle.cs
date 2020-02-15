@@ -11,5 +11,14 @@ namespace MonoGameWindowsStarter
 {
     class Missle
     {
+        public void Update()
+        {
+
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+
+        }
     }
 }
