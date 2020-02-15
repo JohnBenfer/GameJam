@@ -17,7 +17,11 @@ namespace MonoGameWindowsStarter
         List<Gas> gasCans;
         List<Missle> missles;
         List<Bird> birds;
+        Player player;
+        public int SCREEN_WIDTH = 1920;
+        public int SCREEN_HEIGHT = 1080;
 
+        bool paused;
 
         public Game1()
         {
@@ -30,10 +34,12 @@ namespace MonoGameWindowsStarter
         protected override void Initialize()
         {
             // Set the game screen size
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
+            graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
             graphics.ApplyChanges();
 
+            player = new Player(this);
+            paused = false;
 
             base.Initialize();
         }
@@ -58,8 +64,36 @@ namespace MonoGameWindowsStarter
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (!paused)
+            {
 
-           
+                player.Update();
+
+                foreach (Coin c in coins)
+                {
+                    c.Update();
+                }
+
+                foreach (Gas g in gasCans)
+                {
+                    g.Update();
+                }
+
+                foreach (Missle m in missles)
+                {
+                    m.Update();
+                }
+
+                foreach (Bird b in birds)
+                {
+                    b.Update();
+                }
+
+            } else
+            {
+                SuppressDraw();
+            }
+
             base.Update(gameTime);
         }
 
@@ -70,9 +104,29 @@ namespace MonoGameWindowsStarter
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
+            player.Draw(spriteBatch);
+
+            foreach (Coin c in coins)
+            {
+                c.Draw(spriteBatch);
+            }
+
+            foreach (Gas g in gasCans)
+            {
+                g.Draw(spriteBatch);
+            }
+
+            foreach (Missle m in missles)
+            {
+                m.Draw(spriteBatch);
+            }
+
+            foreach (Bird b in birds)
+            {
+                b.Draw(spriteBatch);
+            }
 
 
-            
             spriteBatch.End();
 
             base.Draw(gameTime);
