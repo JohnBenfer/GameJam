@@ -50,6 +50,7 @@ namespace MonoGameWindowsStarter
 
         double score;
         int coinAmount;
+        double gas;
 
         Random random = new Random();
 
@@ -76,6 +77,8 @@ namespace MonoGameWindowsStarter
             paused = false;
             backgroundX = 0;
             backgroundSpeed = 2;
+            gas = 100;
+            coinAmount = 0;
             base.Initialize();
         }
 
@@ -114,10 +117,21 @@ namespace MonoGameWindowsStarter
 
                 UpdateObjects();
 
+
+                if (gas > 100)
+                {
+                    gas = 100;
+                } else if(gas <= 0)
+                {
+                    GameOver();
+                }
+
             } else
             {
                 SuppressDraw();
             }
+
+
 
             base.Update(gameTime);
         }
@@ -131,6 +145,7 @@ namespace MonoGameWindowsStarter
                 if(Collides(c.hitbox, player.hitbox))
                 {
                     coinsCollected.Add(c);
+                    coinAmount++;
                 } else if(c.offScreen)
                 {
                     coinsOffScreen.Add(c);
@@ -139,12 +154,16 @@ namespace MonoGameWindowsStarter
             }
 
             RemoveAll(coins, coinsOffScreen);
+            RemoveAll(coins, coinsCollected);
 
             foreach (Gas g in gasCans)
             {
                 if (Collides(g.hitbox, player.hitbox))
                 {
                     gasCollected.Add(g);
+                    
+                    gas+=10;
+                    
                 }
                 else if (g.offScreen)
                 {
@@ -152,6 +171,8 @@ namespace MonoGameWindowsStarter
                 }
                 g.Update();
             }
+            RemoveAll(gasCans, gasOffScreen);
+            RemoveAll(gasCans, gasCollected);
 
             foreach (Missle m in missles)
             {
@@ -165,6 +186,7 @@ namespace MonoGameWindowsStarter
                 }
                 m.Update();
             }
+            RemoveAll(missles, misslesOffScreen);
 
             foreach (Bird b in birds)
             {
@@ -178,6 +200,7 @@ namespace MonoGameWindowsStarter
                 }
                 b.Update();
             }
+            RemoveAll(birds, birdsOffScreen);
 
 
         }
@@ -275,6 +298,7 @@ namespace MonoGameWindowsStarter
             spriteBatch.Draw(background1, new Rectangle(new Point((int)(backgroundX+SCREEN_WIDTH), 0), new Point(SCREEN_WIDTH, SCREEN_HEIGHT)), Color.White);
 
             spriteBatch.DrawString(ScoreFont, (int)score + "m", new Vector2((float)(SCREEN_WIDTH - 160), (float)(20)), Color.Black);
+            spriteBatch.DrawString(ScoreFont, (int)coinAmount + " coins", new Vector2((float)(SCREEN_WIDTH + 100), (float)(20)), Color.Black);
 
             player.Draw(spriteBatch);
 
@@ -361,6 +385,7 @@ namespace MonoGameWindowsStarter
         public void GameOver()
         {
 
+            Initialize();
 
         }
 
