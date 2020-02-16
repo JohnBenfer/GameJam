@@ -46,7 +46,7 @@
     <Compile Include="Coin.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Gas.cs" />
-    <Compile Include="hitbox.cs" />
+    <Compile Include="Hitbox1.cs" />
     <Compile Include="Missle.cs" />
     <Compile Include="Paddle.cs" />
     <Compile Include="Player.cs" />

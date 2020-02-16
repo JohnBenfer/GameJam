@@ -14,20 +14,44 @@ namespace MonoGameWindowsStarter
 
         Texture2D background1;
         Texture2D background2;
+        SpriteFont ScoreFont;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        // lists of objects
         List<Coin> coins = new List<Coin>();
+        List<Coin> coinsCollected = new List<Coin>();
+        List<Coin> coinsOffScreen = new List<Coin>();
         List<Gas> gasCans = new List<Gas>();
+        List<Gas> gasCollected = new List<Gas>();
+        List<Gas> gasOffScreen = new List<Gas>();
         List<Missle> missles = new List<Missle>();
+        List<Missle> misslesOffScreen = new List<Missle>();
         List<Bird> birds = new List<Bird>();
+        List<Bird> birdsOffScreen = new List<Bird>();
+
+
         Player player;
         public int SCREEN_WIDTH = 1920;
         public int SCREEN_HEIGHT = 1080;
 
         double backgroundX;
-        double backgroundSpeed;
+        public double backgroundSpeed;
 
-        //double playerAcceleration = 1.2;
+        double coinSpawnProbability = 0.01;
+        double gasSpawnProbability = 0.02;
+        double birdSpawnProbability = 0.06;
+        double missleSpawnProbability = 0.015;
+
+        int maxCoins = 3;
+        int maxGas = 3;
+        int maxBirds = 3;
+        int maxMissles = 1;
+
+        double score;
+        int coinAmount;
+
+        Random random = new Random();
 
         int boosterLevel = 1;
 
@@ -59,7 +83,7 @@ namespace MonoGameWindowsStarter
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            //player.LoadContent(Content);
+            ScoreFont = Content.Load<SpriteFont>("ScoreFont");
             background1 = Content.Load<Texture2D>("Background");
             //background2 = Content.Load<Texture2D>("Background");
         }
@@ -79,32 +103,16 @@ namespace MonoGameWindowsStarter
 
             if (!paused)
             {
-                if(backgroundX < -1920)
+                score += 0.05;
+                if(backgroundX < -SCREEN_WIDTH)
                 {
                     backgroundX = 0;
                 }
                 backgroundX -= backgroundSpeed;
-                player.Update();
 
-                foreach (Coin c in coins)
-                {
-                    c.Update();
-                }
+                SpawnObjects();
 
-                foreach (Gas g in gasCans)
-                {
-                    g.Update();
-                }
-
-                foreach (Missle m in missles)
-                {
-                    m.Update();
-                }
-
-                foreach (Bird b in birds)
-                {
-                    b.Update();
-                }
+                UpdateObjects();
 
             } else
             {
@@ -112,6 +120,112 @@ namespace MonoGameWindowsStarter
             }
 
             base.Update(gameTime);
+        }
+
+        private void UpdateObjects()
+        {
+            player.Update();
+
+            foreach (Coin c in coins)
+            {
+                if(Collides(c.hitbox, player.hitbox))
+                {
+                    coinsCollected.Add(c);
+                } else if(c.offScreen)
+                {
+                    coinsOffScreen.Add(c);
+                }
+                c.Update();
+            }
+
+            foreach (Gas g in gasCans)
+            {
+                if (Collides(g.hitbox, player.hitbox))
+                {
+                    gasCollected.Add(g);
+                }
+                else if (g.offScreen)
+                {
+                    gasOffScreen.Add(g);
+                }
+                g.Update();
+            }
+
+            foreach (Missle m in missles)
+            {
+                if (Collides(m.hitbox, player.hitbox))
+                {
+                    GameOver();
+                }
+                else if (m.offScreen)
+                {
+                    misslesOffScreen.Add(m);
+                }
+                m.Update();
+            }
+
+            foreach (Bird b in birds)
+            {
+                if (Collides(b.hitbox, player.hitbox))
+                {
+                    GameOver();
+                }
+                else if (b.offScreen)
+                {
+                    birdsOffScreen.Add(b);
+                }
+                b.Update();
+            }
+        }
+
+        private void SpawnObjects()
+        {
+            int n = random.Next(0, 3000);
+            if(n < 10)
+            {
+                Console.WriteLine("coin");
+                SpawnCoin();
+                // spawn coin
+            } else if(n < 15)
+            {
+                SpawnGas();
+                // spawn gas
+                Console.WriteLine("gas");
+            } else if(n<25)
+            {
+                SpawnBird();
+                Console.WriteLine("bird");
+                // spawn bird
+            } else if(n<27)
+            {
+                SpawnMissle();
+                // spawn missile
+                Console.WriteLine("Missle");
+            }
+        }
+
+        private void SpawnCoin()
+        {
+            Coin c = new Coin(this);
+            coins.Add(c);
+        }
+
+        private void SpawnGas()
+        {
+            Gas g = new Gas(this);
+            gasCans.Add(g);
+        }
+
+        private void SpawnBird()
+        {
+            Bird b = new Bird(this);
+            birds.Add(b);
+        }
+
+        private void SpawnMissle()
+        {
+            Missle m = new Missle(this);
+            missles.Add(m);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -123,6 +237,8 @@ namespace MonoGameWindowsStarter
 
             spriteBatch.Draw(background1, new Rectangle(new Point((int)(backgroundX), 0), new Point(SCREEN_WIDTH, SCREEN_HEIGHT)), Color.White);
             spriteBatch.Draw(background1, new Rectangle(new Point((int)(backgroundX+SCREEN_WIDTH), 0), new Point(SCREEN_WIDTH, SCREEN_HEIGHT)), Color.White);
+
+            spriteBatch.DrawString(ScoreFont, (int)score + "m", new Vector2((float)(SCREEN_WIDTH - 160), (float)(20)), Color.Black);
 
             player.Draw(spriteBatch);
 
@@ -153,7 +269,7 @@ namespace MonoGameWindowsStarter
         }
 
 
-        public bool Collides(hitbox h1, hitbox h2)
+        public bool Collides(Hitbox h1, Hitbox h2)
         {
             Point l1 = new Point(h1.box.X, h1.box.Y);
             Point l2 = new Point(h2.box.X, h2.box.Y);
@@ -206,6 +322,11 @@ namespace MonoGameWindowsStarter
             }
         }
 
+        public void GameOver()
+        {
+
+
+        }
 
 
     }

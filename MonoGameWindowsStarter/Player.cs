@@ -13,7 +13,7 @@ namespace MonoGameWindowsStarter
     class Player
     {
         Texture2D currentTexture;
-        public hitbox hitbox;
+        public Hitbox hitbox;
         public double X;
         public double Y;
         double MAX_VELOCITY;
@@ -35,7 +35,7 @@ namespace MonoGameWindowsStarter
             SCREEN_HEIGHT = game.SCREEN_HEIGHT;
             X = 300;
             Y = SCREEN_HEIGHT / 2;
-            hitbox = new hitbox(50, 100, (int)X, (int)Y);
+            hitbox = new Hitbox(50, 100, (int)X, (int)Y);
             this.acceleration = acceleration;
             this.MAX_VELOCITY = MAX_VELOCITY * -1;
             origin = new Vector2(currentTexture.Width / 2, currentTexture.Height / 2);

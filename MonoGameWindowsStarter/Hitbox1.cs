@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace MonoGameWindowsStarter
 {
-    public class hitbox
+    public class Hitbox
     {
         public Rectangle box;
-        public hitbox(int height, int width, int x, int y)
+        public Hitbox(int height, int width, int x, int y)
         {
             box = new Rectangle((int)(x - (0.5 * width)), (int)(y - (0.5 * height)), width, height);
         }
