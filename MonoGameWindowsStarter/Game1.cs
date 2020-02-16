@@ -25,6 +25,7 @@ namespace MonoGameWindowsStarter
         Texture2D exit;
         Texture2D logo;
         Texture2D upgradeMenu;
+        Texture2D continueButton;
         Color gasTextColor;
 
         // lists of objects
@@ -122,6 +123,7 @@ namespace MonoGameWindowsStarter
             exit = Content.Load<Texture2D>("Exit");
             logo = Content.Load<Texture2D>("Logo");
             upgradeMenu = Content.Load<Texture2D>("UpgradeMenu");
+            continueButton = Content.Load<Texture2D>("Continue");
             //background2 = Content.Load<Texture2D>("Background");
         }
 
@@ -647,6 +649,7 @@ namespace MonoGameWindowsStarter
                 spriteBatch.Draw(coinTexture, new Rectangle((SCREEN_WIDTH/2) - 100, (SCREEN_HEIGHT / 2) - 115, 100, 100), null, Color.White, 0f, new Vector2(20, 20), SpriteEffects.None, 0);
                 spriteBatch.DrawString(BigScoreFont, coinAmount.ToString(), new Vector2((SCREEN_WIDTH / 2) + 10, (SCREEN_HEIGHT / 2) - 120), Color.Black);
                 spriteBatch.DrawString(BigScoreFont, "Final Score " + (int)score + "m", new Vector2((SCREEN_WIDTH / 2) - 200, (SCREEN_HEIGHT / 2)), Color.Black);
+                spriteBatch.Draw(continueButton, new Rectangle((SCREEN_WIDTH / 2) - 100, (SCREEN_HEIGHT / 2) + 100, 400, 300), null, Color.White, 0f, new Vector2(20, 20), SpriteEffects.None, 0);
             } else if(gameUpgradeMenu)
             {
                 spriteBatch.Draw(upgradeMenu, new Rectangle((SCREEN_WIDTH / 2) - 150, (SCREEN_HEIGHT / 2) - 300, 700, 700), null, Color.White, 0f, new Vector2(200, 200), SpriteEffects.None, 0);
