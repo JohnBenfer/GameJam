@@ -23,6 +23,8 @@ namespace MonoGameWindowsStarter
         double GRAVITY = 1;
         int SCREEN_WIDTH;
         int SCREEN_HEIGHT;
+        int width;
+        int height;
         Game1 game;
         Vector2 origin;
 
@@ -33,9 +35,11 @@ namespace MonoGameWindowsStarter
             this.game = game;
             SCREEN_WIDTH = game.SCREEN_WIDTH;
             SCREEN_HEIGHT = game.SCREEN_HEIGHT;
+            width = 300;
+            height = 100;
             X = 300;
             Y = SCREEN_HEIGHT / 2;
-            hitbox = new Hitbox(50, 100, (int)X, (int)Y);
+            hitbox = new Hitbox(height-50, width-60, (int)X, (int)Y);
             this.acceleration = acceleration;
             this.MAX_VELOCITY = MAX_VELOCITY * -1;
             origin = new Vector2(currentTexture.Width / 2, currentTexture.Height / 2);
@@ -48,14 +52,14 @@ namespace MonoGameWindowsStarter
             UpdateVelocity();
 
 
-            hitbox.Move((int)X, (int)Y);
-
+            hitbox.Move((int)X-30, (int)Y - 50);
+            
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw(currentTexture, new Rectangle((int)X, (int)Y, 400, 200), null, Color.White, (float)0, origin, SpriteEffects.None, 0);
-            spriteBatch.Draw(currentTexture, new Rectangle((int)X, (int)Y, 300, 200), null, Color.White, 0f, origin, SpriteEffects.None, 0);
+            spriteBatch.Draw(currentTexture, new Rectangle((int)X, (int)Y, width, height), null, Color.White, 0f, origin, SpriteEffects.None, 0);
         }
 
 

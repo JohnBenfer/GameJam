@@ -24,8 +24,8 @@ namespace MonoGameWindowsStarter
 
         public Gas(Game1 game)
         {
-            width = 200;
-            height = 200;
+            width = 100;
+            height = 100;
             LoadContent(game.Content);
             this.game = game;
             Random random = new Random();
