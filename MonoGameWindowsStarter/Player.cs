@@ -28,7 +28,7 @@ namespace MonoGameWindowsStarter
         int height;
         Game1 game;
         Vector2 origin;
-        int boosterLevel;
+        public int boosterLevel;
 
         public Player(Game1 game, double acceleration, double MAX_VELOCITY, int boosterLevel)
         {
@@ -62,6 +62,10 @@ namespace MonoGameWindowsStarter
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            if(game.gameUpgradeMenu)
+            {
+                currentTexture = sprites[boosterLevel];
+            }
             //spriteBatch.Draw(currentTexture, new Rectangle((int)X, (int)Y, 400, 200), null, Color.White, (float)0, origin, SpriteEffects.None, 0);
             spriteBatch.Draw(currentTexture, new Rectangle((int)X, (int)Y, width, height), null, Color.White, 0f, origin, SpriteEffects.None, 0);
         }

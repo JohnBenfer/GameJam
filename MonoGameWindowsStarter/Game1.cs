@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -26,7 +27,18 @@ namespace MonoGameWindowsStarter
         Texture2D logo;
         Texture2D upgradeMenu;
         Texture2D continueButton;
+        SoundEffect CoinPickup;
+        SoundEffect Thruster;
+        SoundEffect Error;
+        SoundEffect MissleLock;
+        SoundEffect GasPickup;
+        SoundEffect Electricity;
+        SoundEffect GameOverSound;
+        SoundEffect Mopar;
         Color gasTextColor;
+
+        float soundVolume;
+        float musicVolume;
 
         // lists of objects
         List<Coin> coins;
@@ -55,6 +67,8 @@ namespace MonoGameWindowsStarter
         double birdSpawnProbability = 0.06;
         double missleSpawnProbability = 0.015;
 
+        Keys lastKey;
+
         int maxCoins = 3;
         int maxGas = 3;
         int maxBirds = 3;
@@ -71,7 +85,9 @@ namespace MonoGameWindowsStarter
         bool gamePaused = false;
         bool gameStart = true;
         bool gameOver = false;
-        bool gameUpgradeMenu = false;
+        public bool gameUpgradeMenu = false;
+
+        bool tempLock = false;
 
         public Game1()
         {
@@ -83,7 +99,8 @@ namespace MonoGameWindowsStarter
 
         protected override void Initialize()
         {
-            
+            soundVolume = 0.05f;
+            musicVolume = 0.1f;
             gasTextColor = Color.Green;
             // Set the game screen size
             graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
@@ -116,7 +133,8 @@ namespace MonoGameWindowsStarter
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ScoreFont = Content.Load<SpriteFont>("ScoreFont");
             BigScoreFont = Content.Load<SpriteFont>("BigScoreFont");
-            background1 = Content.Load<Texture2D>("Background");
+            background1 = Content.Load<Texture2D>("BackgroundBack");
+            background2 = Content.Load<Texture2D>("BackgroundFront");
             coinTexture = Content.Load<Texture2D>("Coin");
             gasTexture = Content.Load<Texture2D>("Gas");
             play = Content.Load<Texture2D>("Play");
@@ -124,6 +142,15 @@ namespace MonoGameWindowsStarter
             logo = Content.Load<Texture2D>("Logo");
             upgradeMenu = Content.Load<Texture2D>("UpgradeMenu");
             continueButton = Content.Load<Texture2D>("Continue");
+            CoinPickup = Content.Load<SoundEffect>("CoinPickup");
+            Thruster = Content.Load<SoundEffect>("Thruster");
+            Error = Content.Load<SoundEffect>("Error");
+            MissleLock = Content.Load<SoundEffect>("MissileLock");
+            GasPickup = Content.Load<SoundEffect>("GasPickup");
+            Electricity = Content.Load<SoundEffect>("Electricity");
+            GameOverSound = Content.Load<SoundEffect>("GameOver");
+            Mopar = Content.Load<SoundEffect>("MoparFinal");
+
             //background2 = Content.Load<Texture2D>("Background");
         }
 
@@ -201,9 +228,14 @@ namespace MonoGameWindowsStarter
                     {
                         boosterLevel = 2;
                         coinAmount -= boosterTwoPrice;
-                    } else
+                        player.boosterLevel = 2;
+                        PlaySound("mopar");
+                        tempLock = true;
+                    } else if(tempLock == false)
                     {
+
                         // play sound of not enough money
+                        PlaySound("error");
                     }
 
                 } else if(keyboard.IsKeyDown(Keys.D3))
@@ -212,15 +244,22 @@ namespace MonoGameWindowsStarter
                     {
                         boosterLevel = 3;
                         coinAmount -= boosterThreePrice;
-                    } else
+                        player.boosterLevel = 3;
+                        PlaySound("mopar");
+                        tempLock = true;
+                    } else if(tempLock == false)
                     {
                         // play sound of not enough money
+                        PlaySound("error");
                     }
 
                 } else if(keyboard.IsKeyDown(Keys.Space))
                 {
                     gameUpgradeMenu = false;
                     Initialize();
+                } else
+                {
+                    tempLock = false;
                 }
             } else
             {
@@ -231,7 +270,49 @@ namespace MonoGameWindowsStarter
 
             base.Update(gameTime);
         }
+        public void PlaySound(string sound)
+        {
+            if(sound.ToUpper().Equals("COIN"))
+            {
+                CoinPickup.Play(soundVolume, 0, 0);
+            } else if(sound.ToUpper().Equals("THRUSTER"))
+            {
+                Thruster.Play(soundVolume, 0, 0);
+            }
+            else if (sound.ToUpper().Equals("ERROR"))
+            {
+                Error.Play(soundVolume, 0, 0);
+            } else if(sound.ToUpper().Equals("MISSLE"))
+            {
+                Thruster.Play(soundVolume, 0, 0);
+            }
+            else if (sound.ToUpper().Equals("GAS"))
+            {
+                GasPickup.Play(soundVolume, 0, 0);
+            }
+            else if (sound.ToUpper().Equals("ELECTRICITY"))
+            {
+                Electricity.Play(soundVolume, 0, 0);
+            }
+            else if (sound.ToUpper().Equals("GAMEOVER"))
+            {
+                GameOverSound.Play(soundVolume, 0, 0);
+            } else if(sound.ToUpper().Equals("MOPAR"))
+            {
+                Mopar.Play(soundVolume * 20, 0, 0);
+            }
+            
 
+            /*
+            CoinPickup = Content.Load<SoundEffect>("CoinPickup");
+            Thruster = Content.Load<SoundEffect>("Thruster");
+            Error = Content.Load<SoundEffect>("Error");
+            MissleLock = Content.Load<SoundEffect>("Missle");
+            GasPickup = Content.Load<SoundEffect>("GasPickup");
+            Electricity = Content.Load<SoundEffect>("Electricity");
+            GameOverSound = Content.Load<SoundEffect>("GameOver");
+            */
+        }
         private void UpdateObjects()
         {
             player.Update();
@@ -242,6 +323,7 @@ namespace MonoGameWindowsStarter
                 {
                     coinsCollected.Add(c);
                     coinAmount++;
+                    PlaySound("coin");
                 } else if(c.offScreen)
                 {
                     coinsOffScreen.Add(c);
@@ -259,6 +341,8 @@ namespace MonoGameWindowsStarter
                     gasCollected.Add(g);
                     
                     gas+=10;
+
+                    PlaySound("gas");
                     
                 }
                 else if (g.offScreen)
@@ -436,6 +520,10 @@ namespace MonoGameWindowsStarter
                     poles.Remove(c);
                 }
             }
+            if(poles.Contains(c))
+            {
+                PlaySound("electricity");
+            }
 
         }
 
@@ -529,6 +617,7 @@ namespace MonoGameWindowsStarter
                     gasCans.Remove(c);
                 }
             }
+
         }
 
         private void SpawnBird()
@@ -619,6 +708,10 @@ namespace MonoGameWindowsStarter
                     missles.Remove(c);
                 }
             }
+            if (missles.Contains(c))
+            {
+                PlaySound("missle");
+            }
         }
 
         protected override void Draw(GameTime gameTime)
@@ -627,9 +720,9 @@ namespace MonoGameWindowsStarter
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-
-            spriteBatch.Draw(background1, new Rectangle(new Point((int)(backgroundX), 0), new Point(SCREEN_WIDTH, SCREEN_HEIGHT)), Color.White);
-            spriteBatch.Draw(background1, new Rectangle(new Point((int)(backgroundX+SCREEN_WIDTH), 0), new Point(SCREEN_WIDTH, SCREEN_HEIGHT)), Color.White);
+            spriteBatch.Draw(background1, new Rectangle(new Point(0, 0), new Point(SCREEN_WIDTH, SCREEN_HEIGHT)), Color.White);
+            spriteBatch.Draw(background2, new Rectangle(new Point((int)(backgroundX), 0), new Point(SCREEN_WIDTH, SCREEN_HEIGHT)), Color.White);
+            spriteBatch.Draw(background2, new Rectangle(new Point((int)(backgroundX+SCREEN_WIDTH), 0), new Point(SCREEN_WIDTH, SCREEN_HEIGHT)), Color.White);
 
             spriteBatch.DrawString(ScoreFont, (int)score + "m", new Vector2((float)(SCREEN_WIDTH - 160), (float)(20)), Color.Black);
             spriteBatch.DrawString(ScoreFont, coinAmount.ToString(), new Vector2((float)(100), (float)(20)), Color.Black);
@@ -652,6 +745,7 @@ namespace MonoGameWindowsStarter
                 spriteBatch.Draw(continueButton, new Rectangle((SCREEN_WIDTH / 2) - 100, (SCREEN_HEIGHT / 2) + 100, 400, 300), null, Color.White, 0f, new Vector2(20, 20), SpriteEffects.None, 0);
             } else if(gameUpgradeMenu)
             {
+                
                 spriteBatch.Draw(upgradeMenu, new Rectangle((SCREEN_WIDTH / 2) - 150, (SCREEN_HEIGHT / 2) - 300, 700, 700), null, Color.White, 0f, new Vector2(200, 200), SpriteEffects.None, 0);
             }
 
@@ -747,6 +841,7 @@ namespace MonoGameWindowsStarter
 
         public void GameOver()
         {
+            PlaySound("GameOver");
             gameOver = true;
             Initialize();
             

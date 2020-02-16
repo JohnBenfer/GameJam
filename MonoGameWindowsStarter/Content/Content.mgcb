@@ -97,6 +97,12 @@
 /processorParam:TextureFormat=Color
 /build:BackgroundFront.png
 
+#begin BackgroundSong.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:BackgroundSong.mp3
+
 #begin BigScoreFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -140,6 +146,12 @@
 /processorParam:TextureFormat=Color
 /build:Coin.PNG
 
+#begin CoinPickup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:CoinPickup.wav
+
 #begin Continue.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -151,6 +163,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Continue.PNG
+
+#begin Electricity.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Electricity.wav
+
+#begin Error.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Error.wav
 
 #begin Exit.PNG
 /importer:TextureImporter
@@ -171,6 +195,12 @@
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont;ScoreFont.spritefont
 
+#begin GameOver.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GameOver.wav
+
 #begin Gas.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -183,6 +213,12 @@
 /processorParam:TextureFormat=Color
 /build:Gas.PNG
 
+#begin GasPickup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GasPickup.wav
+
 #begin Logo.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -194,6 +230,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Logo.png
+
+#begin MissileLock.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:MissileLock.wav
+
+#begin MoparFinal.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:MoparFinal.wav
 
 #begin pixel.png
 /importer:TextureImporter
@@ -242,6 +290,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Pole.PNG
+
+#begin Thruster.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Thruster.wav
 
 #begin UpgradeMenu.PNG
 /importer:TextureImporter
