@@ -138,6 +138,8 @@ namespace MonoGameWindowsStarter
                 c.Update();
             }
 
+            RemoveAll(coins, coinsOffScreen);
+
             foreach (Gas g in gasCans)
             {
                 if (Collides(g.hitbox, player.hitbox))
@@ -175,6 +177,40 @@ namespace MonoGameWindowsStarter
                     birdsOffScreen.Add(b);
                 }
                 b.Update();
+            }
+
+
+        }
+
+        private void RemoveAll(List<Coin> source, List<Coin> temp)
+        {
+            foreach(Coin o in temp)
+            {
+                source.Remove(o);
+            }
+        }
+
+        private void RemoveAll(List<Bird> source, List<Bird> temp)
+        {
+            foreach (Bird o in temp)
+            {
+                source.Remove(o);
+            }
+        }
+
+        private void RemoveAll(List<Gas> source, List<Gas> temp)
+        {
+            foreach (Gas o in temp)
+            {
+                source.Remove(o);
+            }
+        }
+
+        private void RemoveAll(List<Missle> source, List<Missle> temp)
+        {
+            foreach (Missle o in temp)
+            {
+                source.Remove(o);
             }
         }
 
