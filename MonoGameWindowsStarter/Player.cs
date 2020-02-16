@@ -13,6 +13,7 @@ namespace MonoGameWindowsStarter
     class Player
     {
         Texture2D currentTexture;
+        Texture2D[] sprites = new Texture2D[4];
         public Hitbox hitbox;
         public double X;
         public double Y;
@@ -27,10 +28,13 @@ namespace MonoGameWindowsStarter
         int height;
         Game1 game;
         Vector2 origin;
+        int boosterLevel;
 
-        public Player(Game1 game, double acceleration, double MAX_VELOCITY)
+        public Player(Game1 game, double acceleration, double MAX_VELOCITY, int boosterLevel)
         {
+            this.boosterLevel = boosterLevel;
             LoadContent(game.Content);
+            currentTexture = sprites[boosterLevel];
             velocity = 0;
             this.game = game;
             SCREEN_WIDTH = game.SCREEN_WIDTH;
@@ -68,7 +72,8 @@ namespace MonoGameWindowsStarter
             var keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.Space))
             {
-                if (Y > 100) // if we are not to the top yet
+                currentTexture = sprites[boosterLevel];
+                if (Y > 120) // if we are not to the top yet
                 {
                     if (velocity > MAX_VELOCITY) // if we are under the speed limit 
                     {
@@ -84,6 +89,7 @@ namespace MonoGameWindowsStarter
             }
             else // space bar is not held down
             {
+                currentTexture = sprites[0];
                 if (Y < (SCREEN_HEIGHT - 100))
                 { // if we are not to the bottom of the screen
                     if (velocity < TERMINAL_VELOCITY) // if we are not to terminal velocity
@@ -108,7 +114,11 @@ namespace MonoGameWindowsStarter
 
         public void LoadContent(ContentManager content)
         {
-            currentTexture = content.Load<Texture2D>("PlayerRising1");
+            //currentTexture = content.Load<Texture2D>("PlayerRising1");
+            sprites[0] = content.Load<Texture2D>("PlayerFalling");
+            sprites[1] = content.Load<Texture2D>("PlayerRising1");
+            sprites[2] = content.Load<Texture2D>("PlayerRising2");
+            sprites[3] = content.Load<Texture2D>("PlayerRising3");
         }
     }
 }

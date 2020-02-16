@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace MonoGameWindowsStarter
 {
-    class Gas
+    class Pole
     {
         Texture2D currentTexture;
         public double X;
@@ -21,26 +21,28 @@ namespace MonoGameWindowsStarter
         Game1 game;
         Vector2 origin;
         public bool offScreen;
+        double poleSpeed;
 
-        public Gas(Game1 game)
+        public Pole(Game1 game)
         {
-            width = 100;
-            height = 100;
+            poleSpeed = 0;
+            width = 140;
+            height = 320;
             LoadContent(game.Content);
             this.game = game;
-            Random random = new Random();
-            Y = random.Next(100, game.SCREEN_HEIGHT - 100);
+            
+            Y = game.SCREEN_HEIGHT - 240;
             X = game.SCREEN_WIDTH + width;
             Console.WriteLine(width);
-            hitbox = new Hitbox(height, width, (int)X, (int)Y);
+            hitbox = new Hitbox(height/2, width/2, (int)X, (int)Y);
             origin = new Vector2((float)(width / 2), (float)(height / 2));
             offScreen = false;
         }
         public void Update()
         {
-            X -= game.backgroundSpeed;
+            X -= game.backgroundSpeed + poleSpeed;
             hitbox.Move((int)X, (int)Y);
-            if(X < -1*width)
+            if (X < -1 * width)
             {
                 offScreen = true;
             }
@@ -53,7 +55,9 @@ namespace MonoGameWindowsStarter
 
         public void LoadContent(ContentManager content)
         {
-            currentTexture = content.Load<Texture2D>("Gas");
+            
+            currentTexture = content.Load<Texture2D>("Pole");
+
         }
     }
 }

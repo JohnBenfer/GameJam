@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Badge.cs" />
     <Compile Include="Bird.cs" />
     <Compile Include="BoundingRectangle.cs" />
     <Compile Include="Coin.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Missle.cs" />
     <Compile Include="Paddle.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Pole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

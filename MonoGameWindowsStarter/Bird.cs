@@ -13,17 +13,19 @@ namespace MonoGameWindowsStarter
     class Bird
     {
         Texture2D currentTexture;
-        double X;
-        double Y;
-        int width;
-        int height;
+        public double X;
+        public double Y;
+        public int width;
+        public int height;
         public Hitbox hitbox;
         Game1 game;
         Vector2 origin;
         public bool offScreen;
+        double birdSpeed;
 
         public Bird(Game1 game)
         {
+            birdSpeed = 0.5;
             width = 150;
             height = 150;
             LoadContent(game.Content);
@@ -38,7 +40,7 @@ namespace MonoGameWindowsStarter
         }
         public void Update()
         {
-            X -= game.backgroundSpeed;
+            X -= game.backgroundSpeed + birdSpeed;
             hitbox.Move((int)X, (int)Y);
             if (X < -1 * width)
             {

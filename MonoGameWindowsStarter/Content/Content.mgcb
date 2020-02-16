@@ -13,6 +13,54 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../../../../../Desktop/GameJam/Sprites/Missle.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../../../Desktop/GameJam/Sprites/Missle.PNG;Missle.PNG
+
+#begin ../../../../../Desktop/GameJam/Sprites/PlayerFalling.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../../../Desktop/GameJam/Sprites/PlayerFalling.PNG;PlayerFalling.PNG
+
+#begin ../../../../../Desktop/GameJam/Sprites/PlayerRising2.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../../../Desktop/GameJam/Sprites/PlayerRising2.PNG;PlayerRising2.PNG
+
+#begin ../../../../../Desktop/GameJam/Sprites/PlayerRising3.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../../../Desktop/GameJam/Sprites/PlayerRising3.PNG;PlayerRising3.PNG
+
 #begin Background.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -24,6 +72,37 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Background.png
+
+#begin BackgroundBack.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:BackgroundBack.png
+
+#begin BackgroundFront.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:BackgroundFront.png
+
+#begin BigScoreFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:BigScoreFont.spritefont
 
 #begin Bird1.PNG
 /importer:TextureImporter
@@ -49,18 +128,6 @@
 /processorParam:TextureFormat=Color
 /build:Bird2.PNG
 
-#begin blip.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:blip.wav
-
-#begin bounce.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:bounce.wav
-
 #begin Coin.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -72,6 +139,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Coin.PNG
+
+#begin Exit.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Exit.PNG
 
 #begin File.spritefont
 /importer:FontDescriptionImporter
@@ -92,7 +171,7 @@
 /processorParam:TextureFormat=Color
 /build:Gas.PNG
 
-#begin Missle.PNG
+#begin Logo.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -102,7 +181,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Missle.PNG
+/build:Logo.png
 
 #begin pixel.png
 /importer:TextureImporter
@@ -116,7 +195,7 @@
 /processorParam:TextureFormat=Color
 /build:pixel.png
 
-#begin PlayerFalling.PNG
+#begin Play.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -126,7 +205,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:PlayerFalling.PNG
+/build:Play.PNG
 
 #begin PlayerRising1.PNG
 /importer:TextureImporter
@@ -140,7 +219,7 @@
 /processorParam:TextureFormat=Color
 /build:PlayerRising1.PNG
 
-#begin PlayerRising2.PNG
+#begin Pole.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -150,9 +229,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:PlayerRising2.PNG
+/build:Pole.PNG
 
-#begin PlayerRising3.PNG
+#begin UpgradeMenu.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -162,17 +241,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:PlayerRising3.PNG
-
-#begin Table_tennis_ball.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Table_tennis_ball.png;ball.png
+/build:UpgradeMenu.PNG
 
