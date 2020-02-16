@@ -33,7 +33,7 @@ namespace MonoGameWindowsStarter
             
             Y = game.SCREEN_HEIGHT - 240;
             X = game.SCREEN_WIDTH + width;
-            Console.WriteLine(width);
+
             hitbox = new Hitbox(height/2, width/2, (int)X, (int)Y);
             origin = new Vector2((float)(width / 2), (float)(height / 2));
             offScreen = false;

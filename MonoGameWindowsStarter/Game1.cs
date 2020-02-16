@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 
@@ -12,8 +13,8 @@ namespace MonoGameWindowsStarter
     /// </summary>
     public class Game1 : Game
     {
-        int boosterTwoPrice = 1;
-        int boosterThreePrice = 2;
+        int boosterTwoPrice = 30;
+        int boosterThreePrice = 100;
         Texture2D background1;
         Texture2D background2;
         SpriteFont ScoreFont;
@@ -35,7 +36,10 @@ namespace MonoGameWindowsStarter
         SoundEffect Electricity;
         SoundEffect GameOverSound;
         SoundEffect Mopar;
+        Song BackgroundSong;
         Color gasTextColor;
+
+        
 
         float soundVolume;
         float musicVolume;
@@ -62,17 +66,19 @@ namespace MonoGameWindowsStarter
         double backgroundX;
         public double backgroundSpeed;
 
-        double coinSpawnProbability = 0.01;
-        double gasSpawnProbability = 0.02;
-        double birdSpawnProbability = 0.06;
-        double missleSpawnProbability = 0.015;
+        int coinSpawnProbability;
+        int gasSpawnProbability;
+        int birdSpawnProbability;
+        int missleSpawnProbability;
+        int poleSpawnProbability;
 
         Keys lastKey;
 
-        int maxCoins = 3;
-        int maxGas = 3;
-        int maxBirds = 3;
-        int maxMissles = 1;
+        int maxCoins;
+        int maxGas;
+        int maxBirds;
+        int maxMissles;
+        int maxPoles;
 
         double score = 0;
         int coinAmount = 0;
@@ -99,6 +105,16 @@ namespace MonoGameWindowsStarter
 
         protected override void Initialize()
         {
+            coinSpawnProbability = 10;
+            gasSpawnProbability = 10;
+            birdSpawnProbability = 2;
+            missleSpawnProbability = 1;
+            poleSpawnProbability = 1;
+            maxCoins = 4;
+            maxGas = 3;
+            maxBirds = 2;
+            maxMissles = 1;
+            maxPoles = 1;
             soundVolume = 0.05f;
             musicVolume = 0.1f;
             gasTextColor = Color.Green;
@@ -124,8 +140,15 @@ namespace MonoGameWindowsStarter
             backgroundX = 0;
             backgroundSpeed = 4;
             gas = 100;
+
+            
             base.Initialize();
-        }
+            if(gameStart)
+            {
+                MediaPlayer.Play(BackgroundSong);
+                MediaPlayer.Volume = musicVolume;
+            }
+         }
 
         protected override void LoadContent()
         {
@@ -150,6 +173,7 @@ namespace MonoGameWindowsStarter
             Electricity = Content.Load<SoundEffect>("Electricity");
             GameOverSound = Content.Load<SoundEffect>("GameOver");
             Mopar = Content.Load<SoundEffect>("MoparFinal");
+            BackgroundSong = Content.Load<Song>("BackgroundSong");
 
             //background2 = Content.Load<Texture2D>("Background");
         }
@@ -173,8 +197,14 @@ namespace MonoGameWindowsStarter
             backgroundX -= backgroundSpeed;
             if (!gamePaused && !gameStart && !gameOver && !gameUpgradeMenu)
             {
-                score += 0.05;
+                score += 0.1;
 
+                UpdateLevel();
+
+                if(MediaPlayer.State == MediaState.Stopped)
+                {
+                    MediaPlayer.Play(BackgroundSong);
+                }
 
                 SpawnObjects();
 
@@ -270,6 +300,108 @@ namespace MonoGameWindowsStarter
 
             base.Update(gameTime);
         }
+
+        private void UpdateLevel()
+        {
+            Console.WriteLine(gasCans.Count);
+            if(score > 1000)
+            {
+                coinSpawnProbability = 10;
+                gasSpawnProbability = 38;
+                birdSpawnProbability = 50;
+                missleSpawnProbability = 30;
+                poleSpawnProbability = 40;
+                maxCoins = 6;
+                maxGas = 5;
+                maxBirds = 8;
+                maxMissles = 4;
+                maxPoles = 3;
+            } else if(score > 800)
+            {
+                coinSpawnProbability = 8;
+                gasSpawnProbability = 34;
+                birdSpawnProbability = 40;
+                missleSpawnProbability = 15;
+                poleSpawnProbability = 25;
+                maxCoins = 5;
+                maxGas = 4;
+                maxBirds = 7;
+                maxMissles = 3;
+                maxPoles = 2;
+            } else if(score > 600)
+            {
+                coinSpawnProbability = 8;
+                gasSpawnProbability = 20;
+                birdSpawnProbability = 25;
+                missleSpawnProbability = 15;
+                poleSpawnProbability = 20;
+                maxCoins = 5;
+                maxGas = 4;
+                maxBirds = 6;
+                maxMissles = 2;
+                maxPoles = 2;
+            } else if(score > 400)
+            {
+                coinSpawnProbability = 8;
+                gasSpawnProbability = 20;
+                birdSpawnProbability = 25;
+                missleSpawnProbability = 15;
+                poleSpawnProbability = 8;
+                maxCoins = 5;
+                maxGas = 3;
+                maxBirds = 5;
+                maxMissles = 2;
+                maxPoles = 2;
+            } else if(score > 300)
+            {
+                coinSpawnProbability = 8;
+                gasSpawnProbability = 18;
+                birdSpawnProbability = 20;
+                missleSpawnProbability = 15;
+                poleSpawnProbability = 18;
+                maxCoins = 5;
+                maxGas = 3;
+                maxBirds = 5;
+                maxMissles = 2;
+                maxPoles = 2;
+            } else if(score > 200)
+            {
+                coinSpawnProbability = 8;
+                gasSpawnProbability = 20;
+                birdSpawnProbability = 10;
+                missleSpawnProbability = 6;
+                poleSpawnProbability = 4;
+                maxCoins = 5;
+                maxGas = 3;
+                maxBirds = 4;
+                maxMissles = 2;
+                maxPoles = 2;
+            } else if(score > 100)
+            {
+                coinSpawnProbability = 8;
+                gasSpawnProbability = 20;
+                birdSpawnProbability = 5;
+                missleSpawnProbability = 3;
+                poleSpawnProbability = 3;
+                maxCoins = 4;
+                maxGas = 4;
+                maxBirds = 4;
+                maxMissles = 2;
+                maxPoles = 1;
+            } else if(score > 50)
+            {
+                coinSpawnProbability = 8;
+                gasSpawnProbability = 12;
+                birdSpawnProbability = 3;
+                missleSpawnProbability = 1;
+                poleSpawnProbability = 1;
+                maxCoins = 4;
+                maxGas = 3;
+                maxBirds = 4;
+                maxMissles = 1;
+                maxPoles = 1;
+            }
+        }
         public void PlaySound(string sound)
         {
             if(sound.ToUpper().Equals("COIN"))
@@ -281,7 +413,7 @@ namespace MonoGameWindowsStarter
             }
             else if (sound.ToUpper().Equals("ERROR"))
             {
-                Error.Play(soundVolume, 0, 0);
+                Error.Play((float)(soundVolume * 0.2), 0, 0);
             } else if(sound.ToUpper().Equals("MISSLE"))
             {
                 Thruster.Play(soundVolume, 0, 0);
@@ -451,27 +583,43 @@ namespace MonoGameWindowsStarter
 
         private void SpawnObjects()
         {
-            int n = random.Next(0, 500);
-            if(n < 10)
+            
+            int n = random.Next(0, 2000);
+            if(n < 15)
             {
-                SpawnCoin();
+                if(coins.Count < maxCoins)
+                {
+                    SpawnCoin();
+                }
                 // spawn coin
-            } else if(n < 15)
+            } else if(n < coinSpawnProbability + gasSpawnProbability)
             {
-                SpawnGas();
+                if (gasCans.Count <= maxGas)
+                {
+                    SpawnGas();
+                }
                 // spawn gas
 
-            } else if(n<25)
+            } else if(n< coinSpawnProbability + gasSpawnProbability + birdSpawnProbability)
             {
-                SpawnBird();
+                if (birds.Count <= maxBirds)
+                {
+                    SpawnBird();
+                }
                 // spawn bird
-            } else if(n<35)
+            } else if(n< coinSpawnProbability + gasSpawnProbability + birdSpawnProbability + missleSpawnProbability)
             {
-                SpawnMissle();
+                if (missles.Count <= maxMissles)
+                {
+                    SpawnMissle();
+                }
                 // spawn missile
-            } else if(n<40)
+            } else if(n< coinSpawnProbability + gasSpawnProbability + birdSpawnProbability + poleSpawnProbability)
             {
-                SpawnPole();
+                if (poles.Count <= maxPoles)
+                {
+                    SpawnPole();
+                }
                 
             }
         }
@@ -737,6 +885,12 @@ namespace MonoGameWindowsStarter
                 spriteBatch.Draw(logo, new Rectangle(SCREEN_WIDTH / 2, 250, 700, 400), null, Color.White, 0f, new Vector2(logo.Width / 2, logo.Height / 2), SpriteEffects.None, 1);
                 spriteBatch.Draw(play, new Rectangle(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2), 400, 240), null, Color.White, 0f, new Vector2(play.Width/2, play.Height/2), SpriteEffects.None, 0);
                 spriteBatch.Draw(exit, new Rectangle(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 200, 400, 240), null, Color.White, 0f, new Vector2(exit.Width/2, exit.Height/2), SpriteEffects.None, 0);
+                spriteBatch.DrawString(ScoreFont, 
+                    "Instructions: Collect coins for upgrades and gas cans for fuel. Avoid birds, missiles and power lines. ", 
+                    new Vector2(50, ((SCREEN_HEIGHT / 2) + 330)), Color.Black);
+                spriteBatch.DrawString(ScoreFont,
+    "Music rights: [Merlin] XelonEntertainment(on behalf of 8 - Bit Arcade); CMRRA, and 6 Music Rights Societies ",
+    new Vector2(50, (SCREEN_HEIGHT) - 50), Color.Black);
             } else if(gameOver)
             {
                 spriteBatch.Draw(coinTexture, new Rectangle((SCREEN_WIDTH/2) - 100, (SCREEN_HEIGHT / 2) - 115, 100, 100), null, Color.White, 0f, new Vector2(20, 20), SpriteEffects.None, 0);
@@ -841,6 +995,7 @@ namespace MonoGameWindowsStarter
 
         public void GameOver()
         {
+            MediaPlayer.Stop();
             PlaySound("GameOver");
             gameOver = true;
             Initialize();

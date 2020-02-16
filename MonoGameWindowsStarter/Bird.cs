@@ -33,7 +33,6 @@ namespace MonoGameWindowsStarter
             Random random = new Random();
             Y = random.Next(100, game.SCREEN_HEIGHT - 100);
             X = game.SCREEN_WIDTH + width;
-            Console.WriteLine(width);
             hitbox = new Hitbox(height-100, width-100, (int)X, (int)Y);
             origin = new Vector2((float)(width / 2), (float)(height / 2));
             offScreen = false;
